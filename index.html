@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Musicly — Your Music, Your Way</title>
+
+    <meta
+        name="description"
+        content="Musicly — A modern web-based music player with playlists, search, categories, and a beautiful UI."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="icon" type="image/png" href="assets/images/musicly.png">
+
+</head>
+
+<body>
+
+    <!-- =========================
+         APP CONTAINER
+    ========================== -->
+
+    <div class="app">
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-music"></i>
+                </div>
+
+                <span>Musicly</span>
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <!-- MENU -->
+
+                <div class="nav-section">
+
+                    <p class="nav-title">MENU</p>
+
+                    <a href="#" class="nav-link active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span>Search</span>
+                    </a>
+
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Browse</span>
+                    </a>
+
+                </div>
+
+
+                <!-- YOUR LIBRARY -->
+
+                <div class="nav-section">
+
+                    <p class="nav-title">YOUR LIBRARY</p>
+
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-music"></i>
+                        <span>All Songs</span>
+                    </a>
+
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Liked Songs</span>
+                    </a>
+
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Recently Played</span>
+                    </a>
+
+                </div>
+
+
+                <!-- PLAYLISTS -->
+
+                <div class="nav-section">
+
+                    <p class="nav-title">PLAYLISTS</p>
+
+                    <a href="#" class="nav-link" id="createPlaylistLink">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Create Playlist</span>
+                    </a>
+
+                    <!-- Dynamic playlists rendered here by script.js -->
+
+                    <div id="playlistNavList"></div>
+
+                </div>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="storage-card">
+
+                    <div class="storage-icon">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+
+                    <div>
+                        <strong>Your Music</strong>
+                        <p>Enjoy your collection</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Open menu"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+
+                <!-- SEARCH BOX (Phase 3 — with clear button) -->
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search songs, artists, albums..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        class="search-clear"
+                        id="searchClear"
+                        title="Clear search (Esc)"
+                        aria-label="Clear search"
+                        hidden
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+
+                <div class="topbar-actions">
+
+                    <button
+                        class="icon-button theme-button"
+                        id="themeToggle"
+                        title="Toggle theme"
+                        aria-label="Toggle theme"
+                    >
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+
+                    <button
+                        class="icon-button"
+                        title="Notifications"
+                        aria-label="Notifications"
+                    >
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+                            S
+                        </div>
+
+                        <div class="profile-info">
+                            <strong>Saad</strong>
+                            <span>Music Lover</span>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTENT -->
+
+            <div class="content">
+
+                <!-- HERO -->
+
+                <section class="hero">
+
+                    <div class="hero-text">
+
+                        <span class="hero-label">
+                            <i class="fa-solid fa-sparkles"></i>
+                            YOUR MUSIC SPACE
+                        </span>
+
+                        <h1>
+                            Music that moves<br>
+                            <span>you.</span>
+                        </h1>
+
+                        <p>
+                            Discover your favorite tracks,
+                            create playlists, and enjoy your
+                            personal music collection.
+                        </p>
+
+                        <div class="hero-buttons">
+
+                            <button
+                                class="primary-button"
+                                id="startListeningBtn"
+                            >
+                                <i class="fa-solid fa-play"></i>
+                                Start Listening
+                            </button>
+
+                            <button
+                                class="secondary-button"
+                                id="browseLibraryBtn"
+                            >
+                                <i class="fa-solid fa-list"></i>
+                                Browse Library
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero-art">
+
+                        <div class="vinyl">
+
+                            <div class="vinyl-center">
+                                <i class="fa-solid fa-music"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="floating-note note-one">
+                            ♪
+                        </div>
+
+                        <div class="floating-note note-two">
+                            ♫
+                        </div>
+
+                        <div class="floating-note note-three">
+                            ♪
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECENTLY PLAYED -->
+
+                <section class="section" id="recentlyPlayedSection">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Recently Played</h2>
+                            <p>Jump back into your music</p>
+                        </div>
+
+                        <div class="section-actions">
+
+                            <button
+                                class="clear-recent"
+                                id="clearRecent"
+                                title="Clear recently played"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                                Clear
+                            </button>
+
+                            <button class="view-all" id="viewAllRecent">
+                                View all
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Rendered dynamically by script.js -->
+
+                    <div class="music-grid" id="recentlyPlayedGrid"></div>
+
+                </section>
+
+
+                <!-- CATEGORIES -->
+
+                <section class="section" id="categoriesSection">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Explore Categories</h2>
+                            <p>Find music by mood and genre</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-grid">
+
+                        <button
+                            class="category-card category-pop"
+                            data-category="Pop"
+                        >
+
+                            <div class="category-icon">
+                                <i class="fa-solid fa-microphone"></i>
+                            </div>
+
+                            <div>
+                                <h3>Pop</h3>
+                                <span>0 Songs</span>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+                        </button>
+
+
+                        <button
+                            class="category-card category-rock"
+                            data-category="Rock"
+                        >
+
+                            <div class="category-icon">
+                                <i class="fa-solid fa-guitar"></i>
+                            </div>
+
+                            <div>
+                                <h3>Rock</h3>
+                                <span>0 Songs</span>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+                        </button>
+
+
+                        <button
+                            class="category-card category-hiphop"
+                            data-category="Hip-Hop"
+                        >
+
+                            <div class="category-icon">
+                                <i class="fa-solid fa-compact-disc"></i>
+                            </div>
+
+                            <div>
+                                <h3>Hip-Hop</h3>
+                                <span>0 Songs</span>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+                        </button>
+
+
+                        <button
+                            class="category-card category-chill"
+                            data-category="Chill"
+                        >
+
+                            <div class="category-icon">
+                                <i class="fa-solid fa-cloud"></i>
+                            </div>
+
+                            <div>
+                                <h3>Chill</h3>
+                                <span>0 Songs</span>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ALL SONGS -->
+
+                <section class="section songs-section" id="songsSection">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2 id="songsSectionTitle">All Songs</h2>
+                            <p id="songsSectionSubtitle">
+                                Your complete music library
+                            </p>
+
+                            <!-- Phase 3 — Result count badge -->
+
+                            <div
+                                class="result-count"
+                                id="resultCount"
+                                hidden
+                            ></div>
+                        </div>
+
+                        <div class="sort-control">
+
+                            <span>Sort by</span>
+
+                            <select id="sortSelect">
+                                <option value="Recently Added">Recently Added</option>
+                                <option value="Name">Name</option>
+                                <option value="Artist">Artist</option>
+                                <option value="Duration">Duration</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Music cards grid for the current view -->
+
+                    <div class="music-grid" id="allSongsGrid"></div>
+
+
+                    <!-- Song list rows -->
+
+                    <div class="song-list" id="songList"></div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <!-- =========================
+             MUSIC PLAYER
+        ========================== -->
+
+        <footer class="player">
+
+            <div class="now-playing">
+
+                <div class="player-cover art-one" id="playerCover">
+                    <i class="fa-solid fa-music"></i>
+                </div>
+
+                <div class="now-playing-info">
+                    <strong id="playerTitle">Track One</strong>
+                    <span id="playerArtist">My Music Collection</span>
+                </div>
+
+                <button
+                    class="player-heart"
+                    id="playerHeart"
+                    aria-label="Like current song"
+                >
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+
+            </div>
+
+
+            <div class="player-center">
+
+                <div class="player-controls">
+
+                    <button
+                        class="player-button"
+                        id="shuffleButton"
+                        title="Shuffle"
+                        aria-label="Shuffle"
+                    >
+                        <i class="fa-solid fa-shuffle"></i>
+                    </button>
+
+                    <button
+                        class="player-button"
+                        id="previousButton"
+                        title="Previous"
+                        aria-label="Previous"
+                    >
+                        <i class="fa-solid fa-backward-step"></i>
+                    </button>
+
+                    <button
+                        class="play-button"
+                        id="playButton"
+                        title="Play"
+                        aria-label="Play"
+                    >
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+
+                    <button
+                        class="player-button"
+                        id="nextButton"
+                        title="Next"
+                        aria-label="Next"
+                    >
+                        <i class="fa-solid fa-forward-step"></i>
+                    </button>
+
+                    <button
+                        class="player-button"
+                        id="repeatButton"
+                        title="Repeat"
+                        aria-label="Repeat"
+                    >
+                        <i class="fa-solid fa-repeat"></i>
+                    </button>
+
+                </div>
+
+
+                <div class="progress-area">
+
+                    <span id="currentTime">0:00</span>
+
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+                    <span id="durationTime">0:00</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="player-volume">
+
+                <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
+
+                <div class="volume-bar" id="volumeBar">
+                    <div class="volume-fill" id="volumeFill"></div>
+                </div>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =========================
+         PLAYLIST MODAL (Phase 2)
+    ========================== -->
+
+    <div class="modal-overlay" id="playlistModal" hidden>
+
+        <div class="modal">
+
+            <h3 id="modalTitle">Create Playlist</h3>
+
+            <input
+                type="text"
+                id="playlistName"
+                placeholder="Playlist name..."
+                maxlength="40"
+                autocomplete="off"
+            >
+
+            <div class="modal-actions">
+
+                <button
+                    class="secondary-button"
+                    id="cancelPlaylist"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="primary-button"
+                    id="confirmPlaylist"
+                >
+                    Create
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         DELETE CONFIRMATION MODAL
+    ========================== -->
+
+    <div class="modal-overlay" id="confirmDeleteModal" hidden>
+
+        <div class="modal confirm-modal">
+
+            <div class="confirm-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <h3 id="confirmDeleteTitle">Delete Playlist?</h3>
+
+            <p id="confirmDeleteMessage" class="confirm-message">
+                This action cannot be undone.
+            </p>
+
+            <div class="modal-actions confirm-actions">
+
+                <button
+                    class="secondary-button"
+                    id="cancelDeleteBtn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="danger-button"
+                    id="confirmDeleteBtn"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TOAST CONTAINER
+    ========================== -->
+
+    <div class="toast-container" id="toastContainer"></div>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
